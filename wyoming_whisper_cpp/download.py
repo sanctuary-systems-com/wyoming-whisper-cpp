@@ -33,12 +33,11 @@ def model_name_to_path(model_name: str, dest_dir: Union[str, Path]) -> Path:
 
 
 def download_model(
-    whisper_cpp_dir: Union[str, Path], model_name: str, dest_dir: Union[str, Path]
+    model_name: str,
+    dest_dir: Union[str, Path],
 ) -> None:
     """Downloads whisper.cpp model using the ggml download script."""
-    whisper_cpp_dir = Path(whisper_cpp_dir)
     dest_dir = Path(dest_dir)
 
     dest_dir.mkdir(parents=True, exist_ok=True)
-    script_path = whisper_cpp_dir / "models" / "download-ggml-model.sh"
-    subprocess.check_call([str(script_path), str(model_name), str(dest_dir)])
+    subprocess.check_call(["download-ggml-model.sh", str(model_name), str(dest_dir)])

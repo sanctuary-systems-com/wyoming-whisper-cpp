@@ -56,6 +56,7 @@ setup(
         "Programming Language :: Python :: 3.11",
     ],
     keywords="rhasspy wyoming whisper stt",
+    scripts=["whisper.cpp/models/download-ggml-model.sh"],
     entry_points={
         "console_scripts": ["wyoming-whisper-cpp = wyoming_whisper_cpp.__main__:run"]
     },

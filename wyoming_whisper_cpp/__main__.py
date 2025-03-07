@@ -3,6 +3,7 @@ import argparse
 import asyncio
 import logging
 import shlex
+import os
 from functools import partial
 from pathlib import Path
 from typing import Optional
@@ -21,9 +22,6 @@ _LOGGER = logging.getLogger(__name__)
 async def main() -> None:
     """Main entry point."""
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--whisper-cpp-dir", required=True, help="Path to directory with whisper.cpp"
-    )
     parser.add_argument(
         "--model",
         required=True,
@@ -81,7 +79,6 @@ async def main() -> None:
     )
     _LOGGER.debug(args)
 
-    args.whisper_cpp_dir = Path(args.whisper_cpp_dir)
     model_path: Optional[Path] = None
 
     for data_dir in args.data_dir:
@@ -92,7 +89,7 @@ async def main() -> None:
 
     if model_path is None:
         _LOGGER.debug("Downloading model %s to %s", args.model, args.download_dir)
-        download_model(args.whisper_cpp_dir, args.model, args.download_dir)
+        download_model(args.model, args.download_dir)
         model_path = model_name_to_path(args.model, args.download_dir)
 
     assert model_path is not None
@@ -139,8 +136,10 @@ async def main() -> None:
     if args.whisper_cpp_args:
         optional_args.extend(shlex.split(args.whisper_cpp_args))
 
+    binpath = os.path.join(os.path.dirname(__file__), "bin", "whisper-wyoming")
+
     model_args = [
-        "wyoming-whisper",
+        binpath,
         "--model",
         str(model_path),
         "--language", 
