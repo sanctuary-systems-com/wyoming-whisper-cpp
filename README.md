@@ -18,7 +18,7 @@ cd wyoming-whisper-cpp
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-pip install -e .
+pip install .
 ```
 
 Run a server anyone can connect to:
@@ -45,5 +45,5 @@ docker run -it -p 10300:10300 -v /path/to/local/data:/data rhasspy/wyoming-whisp
 To build with GPU support, pass the relevant CMake flags to the install command:
 
 ``` sh
-CMAKE_ARGS="-DGGML_VULKAN=1" pip install -e .
+CMAKE_ARGS="-DGGML_VULKAN=1" pip install .
 ```
