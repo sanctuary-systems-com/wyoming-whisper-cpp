@@ -2,7 +2,8 @@
 from pathlib import Path
 
 import setuptools
-from setuptools import setup
+from skbuild import setup
+from setuptools import find_packages
 
 this_dir = Path(__file__).parent
 
@@ -20,6 +21,9 @@ version_path = module_dir / "VERSION"
 data_files.append(version_path)
 version = version_path.read_text(encoding="utf-8").strip()
 
+# Add scikit-build as a build requirement
+setup_requires = ["scikit-build", "cmake>=3.16"]
+
 # -----------------------------------------------------------------------------
 
 setup(
@@ -30,9 +34,16 @@ setup(
     author="Michael Hansen",
     author_email="mike@rhasspy.org",
     license="MIT",
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     package_data={module_name: [str(p.relative_to(module_dir)) for p in data_files]},
     install_requires=requirements,
+    setup_requires=setup_requires,
+    cmake_install_dir=module_name,
+    cmake_source_dir="whisper.cpp",
+    cmake_args=[
+        "-DBUILD_SHARED_LIBS=OFF",
+        "-DWHISPER_BUILD_STATIC=ON",
+    ],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

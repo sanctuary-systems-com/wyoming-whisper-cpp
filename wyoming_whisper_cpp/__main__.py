@@ -140,10 +140,10 @@ async def main() -> None:
         optional_args.extend(shlex.split(args.whisper_cpp_args))
 
     model_args = [
-        str(args.whisper_cpp_dir / "main"),
+        "wyoming-whisper",
         "--model",
         str(model_path),
-        "--language",
+        "--language", 
         str(args.language),
         "--beam-size",
         str(args.beam_size),
