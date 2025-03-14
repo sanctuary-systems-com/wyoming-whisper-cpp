@@ -39,10 +39,11 @@ setup(
     install_requires=requirements,
     setup_requires=setup_requires,
     cmake_install_dir=module_name,
-    cmake_source_dir="whisper.cpp",
     cmake_args=[
         "-DBUILD_SHARED_LIBS=OFF",
         "-DWHISPER_BUILD_STATIC=ON",
+        "-DWHISPER_BUILD_EXAMPLES=OFF",
+        "-DWHISPER_BUILD_TESTS=OFF",
     ],
     classifiers=[
         "Development Status :: 3 - Alpha",

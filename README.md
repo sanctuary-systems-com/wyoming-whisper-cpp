@@ -7,13 +7,13 @@
 Install dependencies:
 
 ```sh
-sudo apt-get install build-essential
+sudo apt-get install build-essential cmake
 ```
 
 Clone the repository and set up Python virtual environment:
 
 ``` sh
-git clone https://github.com/rhasspy/wyoming-whisper-cpp.git
+git clone https://github.com/rhasspy/wyoming-whisper-cpp.git --recursive
 cd wyoming-whisper-cpp
 python -m venv venv
 source venv/bin/activate
